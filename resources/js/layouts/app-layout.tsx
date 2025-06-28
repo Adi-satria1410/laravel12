@@ -6,7 +6,7 @@ interface AppLayoutProps {
     children: ReactNode;
     breadcrumbs?: BreadcrumbItem[];
     pageTitle?: string; // Tambahan props
-}
+} 
 
 export default function AppLayout({
     children,

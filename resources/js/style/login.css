@@ -1,0 +1,921 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    /* Background dengan foto */
+    background-image: 
+        linear-gradient(rgba(139, 69, 19, 0.7), rgba(210, 105, 30, 0.6), rgba(244, 164, 96, 0.5)),
+        url('/img/pppp.jpeg');
+    /* Alternatif jika ingin menggunakan foto lokal, uncomment baris di bawah dan comment baris di atas */
+    /* background-image: 
+        linear-gradient(rgba(139, 69, 19, 0.7), rgba(210, 105, 30, 0.6), rgba(244, 164, 96, 0.5)),
+        url('images/bakery-bg.jpg'); */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    overflow-y: auto; /* Allow vertical scroll */
+    padding: 20px 10px; /* Add padding for mobile */
+}
+
+/* Animated Background overlay */
+body::before {
+    content: '';
+    position: fixed; /* Changed from absolute to fixed */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+    animation: float 15s ease-in-out infinite;
+    z-index: 1;
+    pointer-events: none; /* Prevent interference with scrolling */
+}
+
+/* Floating Bread Icons */
+.floating-icons {
+    position: fixed; /* Changed from absolute to fixed */
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+    pointer-events: none; /* Prevent interference with scrolling */
+}
+
+.floating-icon {
+    position: absolute;
+    color: rgba(255, 255, 255, 0.2);
+    font-size: 2rem;
+    animation: floatIcon 20s linear infinite;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.floating-icon:nth-child(1) { left: 10%; animation-delay: 0s; }
+.floating-icon:nth-child(2) { left: 20%; animation-delay: 2s; }
+.floating-icon:nth-child(3) { left: 30%; animation-delay: 4s; }
+.floating-icon:nth-child(4) { left: 40%; animation-delay: 6s; }
+.floating-icon:nth-child(5) { left: 50%; animation-delay: 8s; }
+.floating-icon:nth-child(6) { left: 60%; animation-delay: 10s; }
+.floating-icon:nth-child(7) { left: 70%; animation-delay: 12s; }
+.floating-icon:nth-child(8) { left: 80%; animation-delay: 14s; }
+
+@keyframes floatIcon {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    33% { transform: translateY(-20px) rotate(1deg); }
+    66% { transform: translateY(-10px) rotate(-1deg); }
+}
+
+.login-container {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(25px);
+    border-radius: 25px;
+    box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    padding: 50px 40px;
+    width: 100%;
+    max-width: 480px;
+    position: relative;
+    z-index: 2;
+    animation: slideUp 1s ease-out;
+    border: 2px solid rgba(210, 105, 30, 0.2);
+    margin: auto; /* Center the container */
+    /* Remove fixed height to allow natural scrolling */
+}
+
+.login-container::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #D2691E, #F4A460, #DEB887, #D2691E);
+    border-radius: 25px;
+    z-index: -1;
+    animation: borderGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes borderGlow {
+    0% { opacity: 0.6; }
+    100% { opacity: 0.9; }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.bakery-logo {
+    text-align: center;
+    margin-bottom: 30px;
+    animation: logoFloat 3s ease-in-out infinite;
+}
+
+.bakery-logo i {
+    font-size: 4rem;
+    color: #D2691E;
+    margin-bottom: 10px;
+    display: block;
+    animation: spin 10s linear infinite;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+@keyframes logoFloat {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.login-header h1 {
+    font-family: 'Dancing Script', cursive;
+    color: #8B4513;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+    text-shadow: 2px 2px 4px rgba(139, 69, 19, 0.2);
+    animation: titleGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+    from { text-shadow: 2px 2px 4px rgba(139, 69, 19, 0.2); }
+    to { text-shadow: 2px 2px 8px rgba(139, 69, 19, 0.4); }
+}
+
+.login-header h2 {
+    color: #D2691E;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.login-header p {
+    color: #8B4513;
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.form-group {
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    color: #8B4513;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+}
+
+.input-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+.input-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(210, 105, 30, 0.1), transparent);
+    transition: left 0.6s;
+    z-index: 1;
+    border-radius: 15px;
+}
+
+.input-wrapper:hover::before {
+    left: 100%;
+}
+
+.form-control {
+    width: 100%;
+    padding: 18px 25px 18px 55px;
+    border: 2px solid #DEB887;
+    border-radius: 15px;
+    font-size: 16px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(255, 255, 255, 0.95);
+    outline: none;
+    position: relative;
+    z-index: 2;
+}
+
+.form-control:focus {
+    border-color: #D2691E;
+    box-shadow: 
+        0 0 0 4px rgba(210, 105, 30, 0.1),
+        0 8px 25px rgba(210, 105, 30, 0.15);
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 1);
+}
+
+.form-control:hover {
+    border-color: #CD853F;
+    transform: translateY(-1px);
+}
+
+.input-icon {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #D2691E;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    z-index: 3;
+    animation: iconPulse 2s ease-in-out infinite;
+}
+
+@keyframes iconPulse {
+    0%, 100% { transform: translateY(-50%) scale(1); }
+    50% { transform: translateY(-50%) scale(1.1); }
+}
+
+.form-control:focus + .input-icon {
+    color: #8B4513;
+    transform: translateY(-50%) scale(1.2);
+}
+
+.password-toggle {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #CD853F;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    z-index: 3;
+}
+
+.password-toggle:hover {
+    color: #8B4513;
+    transform: translateY(-50%) scale(1.2);
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+    gap: 10px; /* Add gap between items */
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.remember-me input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: #D2691E;
+    cursor: pointer;
+}
+
+.remember-me label {
+    font-size: 14px;
+    color: #8B4513;
+    margin: 0;
+    cursor: pointer;
+}
+
+.forgot-password {
+    color: #CD853F;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.forgot-password::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background: #D2691E;
+    transition: width 0.3s ease;
+}
+
+.forgot-password:hover::after {
+    width: 100%;
+}
+
+.forgot-password:hover {
+    color: #D2691E;
+}
+
+.login-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #D2691E 0%, #CD853F 50%, #D2691E 100%);
+    color: white;
+    border: none;
+    padding: 20px;
+    border-radius: 15px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 8px 25px rgba(210, 105, 30, 0.3);
+}
+
+.login-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.6s;
+}
+
+.login-btn:hover::before {
+    left: 100%;
+}
+
+.login-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(210, 105, 30, 0.4);
+    background: linear-gradient(135deg, #CD853F 0%, #D2691E 50%, #CD853F 100%);
+}
+
+.login-btn:active {
+    transform: translateY(-1px);
+}
+
+.divider {
+    text-align: center;
+    margin: 30px 0;
+    position: relative;
+}
+
+.divider span {
+    background: rgba(255, 255, 255, 0.98);
+    padding: 0 25px;
+    color: #8B4513;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.social-login {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.social-btn {
+    flex: 1;
+    padding: 15px;
+    border: 2px solid #DEB887;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.95);
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+}
+
+.social-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(210, 105, 30, 0.1), transparent);
+    transition: left 0.6s;
+}
+
+.social-btn:hover::before {
+    left: 100%;
+}
+
+.social-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    border-color: #D2691E;
+}
+
+.social-btn.google {
+    color: #db4437;
+}
+
+.social-btn.google:hover {
+    background: linear-gradient(145deg, #db4437, #c23321);
+    color: white;
+    border-color: #db4437;
+}
+
+.social-btn.facebook {
+    color: #3b5998;
+}
+
+.social-btn.facebook:hover {
+    background: linear-gradient(145deg, #3b5998, #2d4373);
+    color: white;
+    border-color: #3b5998;
+}
+
+.signup-link {
+    text-align: center;
+    color: #8B4513;
+    font-size: 14px;
+    animation: fadeInUp 1s ease-out 0.5s both;
+}
+
+.signup-link a {
+    color: #D2691E;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.signup-link a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background: #D2691E;
+    transition: width 0.3s ease;
+}
+
+.signup-link a:hover::after {
+    width: 100%;
+}
+
+.signup-link a:hover {
+    color: #8B4513;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Enhanced Responsive Design */
+@media (max-width: 768px) {
+    body {
+        background-attachment: scroll; /* Fix untuk mobile */
+        padding: 15px 10px;
+        min-height: 100vh;
+        align-items: flex-start; /* Allow content to start from top */
+        padding-top: 30px; /* Add top padding */
+    }
+    
+    .login-container {
+        margin: 0;
+        padding: 35px 25px;
+        background: rgba(255, 255, 255, 0.99);
+        max-width: 100%;
+        border-radius: 20px;
+    }
+    
+    .login-header h1 {
+        font-size: 2.2rem;
+    }
+    
+    .login-header h2 {
+        font-size: 1.3rem;
+    }
+    
+    .bakery-logo i {
+        font-size: 3.5rem;
+    }
+    
+    .form-options {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .social-login {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .form-control {
+        padding: 16px 20px 16px 50px;
+        font-size: 16px; /* Prevent zoom on iOS */
+    }
+    
+    .input-icon {
+        left: 18px;
+        font-size: 16px;
+    }
+    
+    .password-toggle {
+        right: 18px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px 5px;
+        padding-top: 20px;
+    }
+    
+    .login-container {
+        padding: 30px 20px;
+        border-radius: 15px;
+        margin: 0;
+    }
+    
+    .login-header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .login-header h2 {
+        font-size: 1.1rem;
+    }
+    
+    .bakery-logo i {
+        font-size: 3rem;
+    }
+    
+    .form-control {
+        padding: 14px 18px 14px 45px;
+    }
+    
+    .input-icon {
+        left: 15px;
+        font-size: 15px;
+    }
+    
+    .password-toggle {
+        right: 15px;
+        font-size: 15px;
+    }
+    
+    .login-btn {
+        padding: 18px;
+        font-size: 16px;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .floating-icon {
+        font-size: 1.5rem; /* Smaller floating icons on mobile */
+    }
+}
+
+@media (max-width: 360px) {
+    .login-container {
+        padding: 25px 15px;
+    }
+    
+    .login-header h1 {
+        font-size: 1.6rem;
+    }
+    
+    .login-header h2 {
+        font-size: 1rem;
+    }
+    
+    .bakery-logo i {
+        font-size: 2.5rem;
+    }
+    
+    .form-control {
+        padding: 12px 15px 12px 40px;
+    }
+    
+    .login-btn {
+        padding: 16px;
+        font-size: 15px;
+    }
+}
+
+/* Tablet Portrait */
+@media (min-width: 481px) and (max-width: 768px) {
+    .login-container {
+        max-width: 420px;
+        padding: 40px 35px;
+    }
+    
+    .login-header h1 {
+        font-size: 2.3rem;
+    }
+    
+    .bakery-logo i {
+        font-size: 3.8rem;
+    }
+}
+
+/* Large screens */
+@media (min-width: 1200px) {
+    .login-container {
+        max-width: 520px;
+        padding: 60px 50px;
+    }
+    
+    .login-header h1 {
+        font-size: 2.8rem;
+    }
+    
+    .login-header h2 {
+        font-size: 1.5rem;
+    }
+    
+    .bakery-logo i {
+        font-size: 4.5rem;
+    }
+}
+
+/* Loading Animation */
+.loading {
+    display: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top: 2px solid #ffffff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: 10px;
+}
+
+/* Success Animation */
+.success-checkmark {
+    display: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #4CAF50;
+    position: relative;
+    margin-right: 10px;
+}
+
+.success-checkmark::after {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 3px;
+    width: 6px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+/* Particle Effect */
+.particles {
+    position: fixed; /* Changed to fixed */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+    pointer-events: none; /* Prevent interference with scrolling */
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    animation: particleFloat 15s linear infinite;
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
+}
+
+.particle:nth-child(odd) {
+    background: rgba(210, 105, 30, 0.6);
+    box-shadow: 0 0 6px rgba(210, 105, 30, 0.4);
+}
+
+@keyframes particleFloat {
+    0% {
+        transform: translateY(100vh) translateX(0px);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100px) translateX(100px);
+        opacity: 0;
+    }
+}
+
+/* Hover Effects for Form Elements */
+.form-group:hover label {
+    color: #D2691E;
+    transform: translateX(5px);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(241, 241, 241, 0.8);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #D2691E, #CD853F);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #CD853F, #D2691E);
+}
+
+/* Background overlay untuk kontras yang lebih baik */
+.bg-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(139, 69, 19, 0.1);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Smooth scrolling behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Ensure content is scrollable on all devices */
+body, html {
+    height: auto;
+    min-height: 100vh;
+}
+
+/* Fix for iOS Safari viewport issues */
+@supports (-webkit-touch-callout: none) {
+    body {
+        min-height: -webkit-fill-available;
+    }
+}
+
+/* Landscape orientation adjustments */
+@media (max-height: 600px) and (orientation: landscape) {
+    body {
+        align-items: flex-start;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+    
+    .login-container {
+        margin: 0 auto;
+    }
+    
+    .bakery-logo i {
+        font-size: 2.5rem;
+    }
+    
+    .login-header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .login-header h2 {
+        font-size: 1.1rem;
+    }
+    
+    .form-group {
+        margin-bottom: 15px;
+    }
+    
+    .form-options {
+        margin-bottom: 20px;
+    }
+    
+    .divider {
+        margin: 20px 0;
+    }
+    
+    .social-login {
+        margin-bottom: 20px;
+    }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .login-container {
+        backdrop-filter: blur(30px);
+    }
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .floating-icon,
+    .bakery-logo i,
+    body::before {
+        animation: none !important;
+    }
+}
+
+/* Focus styles for accessibility */
+.form-control:focus,
+.login-btn:focus,
+.social-btn:focus,
+.forgot-password:focus,
+.signup-link a:focus {
+    outline: 2px solid #D2691E;
+    outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+    body::before,
+    .floating-icons,
+    .particles {
+        display: none !important;
+    }
+    
+    .login-container {
+        box-shadow: none;
+        border: 2px solid #D2691E;
+    }
+}
