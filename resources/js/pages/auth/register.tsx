@@ -3,14 +3,14 @@ import '@/style/login.css';
 import { router, useForm } from '@inertiajs/react';
 import React, { useEffect, useState } from 'react';
 
-interface RegisrerForm {
+interface RegisterForm {
     name: string;
     email: string;
     password: string;
 }
 
 export default function RegisterPage() {
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',
         password: '',
@@ -53,7 +53,7 @@ export default function RegisterPage() {
         const btnText = document.querySelector('.btn-text') as HTMLElement;
 
         if (loading) loading.style.display = 'inline-block';
-        if (btnText) btnText.textContent = 'Signing In...';
+        if (btnText) btnText.textContent = 'Creating Account...';
         if (button) button.style.pointerEvents = 'none';
 
         // Kirim data ke Laravel backend
@@ -63,22 +63,32 @@ export default function RegisterPage() {
                 if (loading) loading.style.display = 'none';
                 const successCheck = document.querySelector('.success-checkmark') as HTMLElement;
                 if (successCheck) successCheck.style.display = 'inline-block';
-                if (btnText) btnText.textContent = 'Welcome to Sweet Bakery!';
+                if (btnText) btnText.textContent = 'Account Created! Welcome to Sweet Bakery!';
                 if (button) button.style.background = 'linear-gradient(135deg, #4CAF50 0%, #45a049 100%)';
 
+                // Reset form
+                reset();
+
                 setTimeout(() => {
-                    router.visit('/');
-                }, 200);
+                    router.visit('/dashboard');
+                }, 2000);
             },
             onError: (errors) => {
                 // Reset button state jika error
                 if (loading) loading.style.display = 'none';
-                if (btnText) btnText.textContent = 'Masuk ke Toko Roti';
+                if (btnText) btnText.textContent = 'Create Account';
                 if (button) {
                     button.style.pointerEvents = 'auto';
                     button.style.background = '';
                 }
-                console.error('Login errors:', errors);
+                
+                // Log errors untuk debugging
+                console.error('Registration errors:', errors);
+                
+                // Show error message
+                if (errors.error) {
+                    alert(errors.error);
+                }
             },
         });
     };
@@ -112,29 +122,28 @@ export default function RegisterPage() {
 
                 <div className="login-header">
                     <h1>Sweet Bakery</h1>
-                    <h2>Please Create Your Account</h2>
+                    <h2>Create Your Account</h2>
                     <h2>For Magic Cook</h2>
-
-                    <p>Sign in to your bakery account and start baking magic!</p>
+                    <p>Join our bakery family and start your magical cooking journey!</p>
                 </div>
 
                 <form id="registerForm" onSubmit={handleRegister}>
                     <div className="form-group">
-                        <label htmlFor="name">Name</label>
+                        <label htmlFor="name">Full Name</label>
                         <div className="input-wrapper">
                             <input
-                                type="name"
+                                type="text"
                                 id="name"
                                 name="name"
                                 className="form-control"
-                                placeholder="Enter your name"
+                                placeholder="Enter your full name"
                                 value={data.name}
                                 onChange={(e) => setData('name', e.target.value)}
                                 required
                             />
-                            <i className="fas fa-envelope input-icon"></i>
+                            <i className="fas fa-user input-icon"></i>
                         </div>
-                        {errors.email && <div className="error-message">{errors.email}</div>}
+                        {errors.name && <div className="error-message">{errors.name}</div>}
                     </div>
 
                     <div className="form-group">
@@ -163,20 +172,24 @@ export default function RegisterPage() {
                                 id="password"
                                 name="password"
                                 className="form-control"
-                                placeholder="Enter your password"
+                                placeholder="Create a strong password (min 8 characters)"
                                 value={data.password}
                                 onChange={(e) => setData('password', e.target.value)}
                                 required
+                                minLength={8}
                             />
                             <i className="fas fa-lock input-icon"></i>
                             <i className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'} password-toggle`} onClick={togglePassword}></i>
                         </div>
                         {errors.password && <div className="error-message">{errors.password}</div>}
                     </div>
+
                     <button type="submit" className="login-btn" disabled={processing}>
                         <span className="loading"></span>
                         <span className="success-checkmark"></span>
-                        <span className="btn-text">{processing ? 'Process Create an Account' : 'Create Account'}</span>
+                        <span className="btn-text">
+                            {processing ? 'Creating Your Account...' : 'Create My Account'}
+                        </span>
                     </button>
                 </form>
 
@@ -194,7 +207,7 @@ export default function RegisterPage() {
                 </div>
 
                 <div className="signup-link">
-                    Already have an account? <a href="/register">Go for the magic cook!</a>
+                    Already have an account? <a href="/">Sign in here!</a>
                 </div>
             </div>
         </div>
